@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View 1 Of Student's Profiles -->
+    <record id="view_cms_student_form" model="ir.ui.view">
+        <field name="name">cms.student.form</field>
+        <field name="model">cms.student</field>
+        <field name="arch" type="xml">
+            <form string="Student Information">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name" />
+                        </h1>
+                     </div>
+					 <!-- <field name="image" widget="image" options="{'size': (100, 100)}" class="oe_avatar" style="float:right; margin-top:-60px;"/> -->
+					<field name="image" class="oe_avatar" options='{"zoom": true, "preview_image":"image"}' style="float:right; margin-top:-60px;"/> 
+                     <div>
+                     <h2>
+                     <field name="rollno" placeholder="Roll No" />
+                     </h2>
+                     </div>
+                     <div>
+						<group colspan="2" col="2" string="Student Information">
+                            <field name="group_ids"/>
+                            <field name="department_id"/>
+							<field name="cnic"/>
+							<field name="father_name"/>
+							<field name="cgpa"/>
+							<field name="email"/>
+							<field name="phone"/>
+							<field name="gender"/>
+							<field name="birth_date"/>
+							<field name="age"/>
+							<field name="active"/>
+						</group>				
+
+                        <notebook>
+                        	<page string="Remarks">
+								<field name="remark"/>
+							</page>
+                        </notebook>			
+					</div>
+				</sheet>
+			</form>
+		</field>
+    </record>
+
+    <!-- Tree View of Student -->
+    <record id="view_cms_student_tree" model="ir.ui.view">
+        <field name="name">student.student.tree</field>
+        <field name="model">cms.student</field>
+        <field name="arch" type="xml">
+            <tree string="Student Information">
+				<field name="name"/>
+                <field name="rollno"/>
+                <field name="group_ids" attrs="{'readonly': [('id', '!=', False)]}"/>
+                <field name="department_id"/>
+				<field name="cgpa"/>
+                <field name="father_name"/>
+                <field name="cnic"/>
+				<field name="gender"/>
+				<field name="birth_date"/>
+				<field name="admission_date"/>
+				<field name="phone"/>
+				<field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+ <!-- Search View of Student -->
+    <record id="view_cms_student_search" model="ir.ui.view">
+        <field name="name">cms.student.search</field>
+        <field name="model">cms.student</field>
+        <field name="arch" type="xml">
+            <search string="Student Information">
+                <group col="10" colspan="4">
+                    <field name="name"/>
+                    <field name="rollno"/>
+                    <field name="father_name"/>
+                    <field name="department_id"/>
+                    <field name="group_ids"/>
+					<field name="cnic"/>
+					<field name="gender"/>
+					<field name="birth_date"/>
+					<field name="admission_date"/>
+					<field name="phone"/>
+                </group>
+                <newline />
+                <group string="Group By">
+                    <filter name="admission_date" string="Admission Date" help="By Admission Date" context="{'group_by':'admission_date'}" />
+                    <filter name="gender" string="Gender" help="By Gender" context="{'group_by':'gender'}" />
+                </group>
+                <separator/>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Calendar View Of Student -->
+    <record id="view_cms_student_calendar" model="ir.ui.view">
+        <field name="name">cms.student.calendar</field>
+        <field name="model">cms.student</field>
+        <field name="arch" type="xml">
+            <calendar color="name" date_start="admission_date" date_stop="birth_date" string="Admission Date">
+            <!-- <calendar color="name" date_start="admission_date" string="Admission Date">-->
+            <!--<calendar color="name" date_start="admission_date" string="Birth Date">-->
+                <field name="name"/>
+                <field name="admission_date"/>
+                <field name="gender"/>
+            </calendar>
+        </field>
+    </record>
+
+	<!-- Student Kanban View -->
+    <record model="ir.ui.view" id="view_cms_student_kanban">
+        <field name="name">cms.student.kanban</field>
+        <field name="model">cms.student</field>
+        <field name="arch" type="xml">
+            <kanban class="o_cms_student_kanban" sample="1">
+                <field name="id" widget="handle"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="image"/>
+                <field name="active"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_cms_student_kanban">
+                            <t t-if="record.image.raw_value">
+                                <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cms.student', 'image', record.id.raw_value)})" role="img"/>
+                            </t>
+                            
+                            <div class="ribbon ribbon-top-right" attrs="{'invisible': [('active', '=', True)]}">
+                                <span class="bg-danger">Archived</span>
+                            </div>
+                            
+                            <div class="oe_kanban_details d-flex flex-column justify-content-between">
+                                <div>
+                                    	<strong class="o_kanban_record_title oe_student_heading">
+                                        <h2>
+											<field name="name"/>
+                                        </h2>
+										</strong>
+                                        <h5>
+											<field name="rollno"/>
+                                        </h5>
+                                            <field name="department_id" style="float: right; margin-left: 10px;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_cms_project_form" model="ir.ui.view">
+        <field name="name">cms.project.form</field>
+        <field name="model">cms.project</field>
+        <field name="arch" type="xml">
+            <form string="Project Information">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name" />
+                        </h1>
+                     </div>
+                     <div>
+                     <h2>
+                     <field name="project_id" placeholder="Project ID" />
+                     </h2>
+                     </div>
+                     <div>
+						<group colspan="2" col="2" string="Project Information">
+                            <field name="attachment_ids"/>
+                            <field name="description"/>
+                            <field name="start_date"/>
+							<field name="end_date"/>
+						</group>				
+
+                        <notebook>
+                        	<page string="Remarks">
+								<field name="remark"/>
+							</page>
+                        </notebook>			
+					</div>
+				</sheet>
+			</form>
+		</field>
+    </record>
+
+
+<record id="view_cms_projectevaluation_form" model="ir.ui.view">
+    <field name="name">projectevaluation.projectevaluation.form</field>
+    <field name="model">cms.projectevaluation</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="project_id"/>
+                    <field name="group_id"/>
+                    <field name="faculty_name"/>
+                    <field name="department"/>
+                    <field name="date"/>
+                    <field name="remark"/>
+                </group>
+                <notebook>
+                    <page string="Child Evaluations">
+                        <field name="child_evaluations" mode="tree">
+                            <tree editable="bottom">
+                                <field name="marks_title"/>
+                                <field name="marks_val"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="marks_title"/>
+                                    <field name="marks_val"/>
+                                </group>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+<record id="view_cms_projectevaluation_tree" model="ir.ui.view">
+    <field name="name">projectevaluation.projectevaluation.tree</field>
+    <field name="model">cms.projectevaluation</field>
+    <field name="arch" type="xml">
+        <tree string="Project Evaluation">
+            <field name="project_id"/>
+            <field name="group_id"/>
+            <field name="faculty_name"/>
+            <field name="department"/>
+            <field name="date"/>
+            <field name="remark"/>
+            <field name="child_evaluations" widget="many2many_tags">
+                <tree editable="bottom">
+                    <field name="marks_title"/>
+                    <field name="marks_val"/>
+                </tree>
+            </field>
+        </tree>
+    </field>
+</record>
+
+
+
+
+    <!-- Tree View of Project -->
+    <record id="view_cms_project_tree" model="ir.ui.view">
+        <field name="name">project.project.tree</field>
+        <field name="model">cms.project</field>
+        <field name="arch" type="xml">
+            <tree string="Project Information">
+				<field name="name"/>
+                <field name="project_id"/>
+                <field name="description"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="attachment_ids"/>
+                <field name="remark"/>
+                <field name="group_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+            </tree>
+        </field>
+    </record>
+
+ <!-- Search View of Project -->
+    <record id="view_cms_project_search" model="ir.ui.view">
+        <field name="name">cms.project.search</field>
+        <field name="model">cms.project</field>
+        <field name="arch" type="xml">
+            <search string="Project Information">
+                <group col="10" colspan="4">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                    <field name="description"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="remark"/>
+                    <field name="group_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                </group>
+                <newline />
+                <group string="Group By">
+                    <filter name="group_id" string="Group" help="By Group" context="{'group_by':'group_id'}" />
+                </group>
+                <separator/>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Calendar View Of Project -->
+    <record id="view_cms_project_calendar" model="ir.ui.view">
+        <field name="name">cms.project.calendar</field>
+        <field name="model">cms.project</field>
+        <field name="arch" type="xml">
+            <calendar color="name" date_start="start_date" date_stop="end_date" string="Project Schedule">
+                <field name="name"/>
+                <field name="group_id"/>
+            </calendar>
+        </field>
+    </record>
+
+	<!-- Project Kanban View -->
+    <record model="ir.ui.view" id="view_cms_project_kanban">
+        <field name="name">cms.project.kanban</field>
+        <field name="model">cms.project</field>
+        <field name="arch" type="xml">
+            <kanban class="o_cms_project_kanban" sample="1">
+                <field name="project_id" widget="handle"/>
+                <field name="name"/>
+                <field name="group_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_cms_student_kanban">
+                            <div class="oe_kanban_details d-flex flex-column justify-content-between">
+                                <div>
+                                    	<strong class="o_kanban_record_title oe_student_heading">
+                                        <h2>
+											<field name="name"/>
+                                        </h2>
+										</strong>
+                                        <h5>
+											<field name="project_id"/>
+                                        </h5>
+                                            <field name="group_id" style="float: right; margin-left: 10px;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+        <!-- Form View 1 Of faculty's Profiles -->
+    <record id="view_cms_faculty_form" model="ir.ui.view">
+        <field name="name">cms.faculty.form</field>
+        <field name="model">cms.faculty</field>
+        <field name="arch" type="xml">
+            <form string="Faculty Information">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name" />
+                        </h1>
+                     </div>
+					 <!-- <field name="image" widget="image" options="{'size': (100, 100)}" class="oe_avatar" style="float:right; margin-top:-60px;"/> -->
+					<field name="image" class="oe_avatar" options='{"zoom": true, "preview_image":"image"}' style="float:right; margin-top:-60px;"/> 
+                     <div>
+                     <h2>
+                     <field name="cnic" placeholder="CNIC" />
+                     </h2>
+                     </div>
+                     <div>
+						<group colspan="2" col="2" string="Faculty Information">
+                            <field name="department_id"/>
+							<field name="father_name"/>
+							<field name="email"/>
+							<field name="phone"/>
+							<field name="gender"/>
+							<field name="birth_date"/>
+							<field name="age"/>
+							<field name="active"/>
+						</group>				
+
+                        <notebook>
+                        	<page string="Remarks">
+								<field name="remark"/>
+							</page>
+                        </notebook>			
+					</div>
+				</sheet>
+			</form>
+		</field>
+    </record>
+
+    <!-- Tree View of faculty -->
+    <record id="view_cms_faculty_tree" model="ir.ui.view">
+        <field name="name">faculty.faculty.tree</field>
+        <field name="model">cms.faculty</field>
+        <field name="arch" type="xml">
+            <tree string="faculty Information">
+				<field name="name"/>
+                <field name="cnic"/>
+                <field name="department_id"/>
+                <field name="father_name"/>
+				<field name="gender"/>
+				<field name="birth_date"/>
+				<field name="admission_date"/>
+				<field name="phone"/>
+				<field name="active" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+ <!-- Search View of faculty -->
+    <record id="view_cms_faculty_search" model="ir.ui.view">
+        <field name="name">cms.faculty.search</field>
+        <field name="model">cms.faculty</field>
+        <field name="arch" type="xml">
+            <search string="faculty Information">
+                <group col="10" colspan="4">
+                    <field name="name"/>
+					<field name="cnic"/>
+                    <field name="father_name"/>
+                    <field name="department_id"/>
+					<field name="gender"/>
+					<field name="birth_date"/>
+					<field name="admission_date"/>
+					<field name="phone"/>
+                </group>
+                <newline />
+                <group string="Group By">
+                    <filter name="admission_date" string="Admission Date" help="By Admission Date" context="{'group_by':'admission_date'}" />
+                    <filter name="gender" string="Gender" help="By Gender" context="{'group_by':'gender'}" />
+                </group>
+                <separator/>
+            </search>
+        </field>
+    </record>
+    
+    <!-- Calendar View Of faculty -->
+    <record id="view_cms_faculty_calendar" model="ir.ui.view">
+        <field name="name">cms.faculty.calendar</field>
+        <field name="model">cms.faculty</field>
+        <field name="arch" type="xml">
+            <calendar color="name" date_start="admission_date" date_stop="birth_date" string="Admission Date">
+                <field name="name"/>
+                <field name="admission_date"/>
+                <field name="gender"/>
+            </calendar>
+        </field>
+    </record>
+
+	<!-- faculty Kanban View -->
+    <record model="ir.ui.view" id="view_cms_faculty_kanban">
+        <field name="name">cms.faculty.kanban</field>
+        <field name="model">cms.faculty</field>
+        <field name="arch" type="xml">
+            <kanban class="o_cms_faculty_kanban" sample="1">
+                <field name="id" widget="handle"/>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="image"/>
+                <field name="active"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_cms_faculty_kanban">
+                            <t t-if="record.image.raw_value">
+                                <div class="o_kanban_image_fill_left o_kanban_image_full" t-attf-style="background-image: url(#{kanban_image('cms.faculty', 'image', record.id.raw_value)})" role="img"/>
+                            </t>
+                            
+                            <div class="ribbon ribbon-top-right" attrs="{'invisible': [('active', '=', True)]}">
+                                <span class="bg-danger">Archived</span>
+                            </div>
+                            
+                            <div class="oe_kanban_details d-flex flex-column justify-content-between">
+                                <div>
+                                    	<strong class="o_kanban_record_title oe_faculty_heading">
+                                        <h2>
+											<field name="name"/>
+                                        </h2>
+										</strong>
+                                        <h5>
+											<field name="email"/>
+                                        </h5>
+                                            <field name="department_id" style="float: right; margin-left: 10px;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+        <!-- Form View 1 Of Department's Profiles -->
+    <record id="view_cms_department_form" model="ir.ui.view">
+        <field name="name">cms.department.form</field>
+        <field name="model">cms.department</field>
+        <field name="arch" type="xml">
+            <form string="Department Information">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Department Name" />
+                        </h1>
+							<field name="parent_id"/>
+                     </div>
+                     
+				</sheet>
+			</form>
+		</field>
+    </record>
+    
+    <!-- Form View 1 Of Department's Profiles -->
+    <record id="view_cms_department_tree" model="ir.ui.view">
+        <field name="name">cms.department.tree</field>
+        <field name="model">cms.department</field>
+		<field name="arch" type="xml">
+			<tree string="Department" >
+				<field name="name"/>
+				<field name="parent_id"/>
+			</tree>
+		</field>
+    </record>
+
+
+    <record id="view_cms_groups_form" model="ir.ui.view">
+        <field name="name">cms.group.form</field>
+        <field name="model">cms.group</field>
+        <field name="arch" type="xml">
+            <form string="Group Information">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Group Name" />
+                        </h1>
+                     </div>
+                     <h2>
+                            <field name="group_id" placeholder="Group ID" />
+                            <field name="coordinator_id" placeholder="Coordinator" />
+                     </h2>
+							<field name="student_ids"/>
+                     
+				</sheet>
+			</form>
+		</field>
+    </record>
+    
+    <record id="view_cms_groups_tree" model="ir.ui.view">
+        <field name="name">cms.group.tree</field>
+        <field name="model">cms.group</field>
+		<field name="arch" type="xml">
+			<tree string="groups" >
+				<field name="name"/>
+				<field name="group_id"/>
+				<field name="coordinator_id"/>
+				<field name="student_ids"/>
+			</tree>
+		</field>
+    </record>
+
+
+    <record id="action_student_main" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cms.student</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No Students created yet!</p>
+        </field>
+    </record>
+
+    <record id="action_project_main" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cms.project</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No Projects created yet!</p>
+        </field>
+    </record>
+
+    <record id="action_projectevaluation_main" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cms.projectevaluation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No Projects Evaluation done yet!</p>
+        </field>
+    </record>
+
+    <record id="action_faculty_main" model="ir.actions.act_window">
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cms.faculty</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">No Faculty Created yet!</p>
+        </field>
+    </record>
+
+    <record id="action_cms_department" model="ir.actions.act_window">
+        <field name="name">CMS Department</field>
+        <field name="res_model">cms.department</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+    <record id="action_cms_group" model="ir.actions.act_window">
+        <field name="name">CMS Group</field>
+        <field name="res_model">cms.group</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+
+</odoo>

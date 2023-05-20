@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cms_RD_coordinator_student,cms.student.admin,model_cms_student,group_cms_coordinator_id,1,1,1,1
+access_cms_RD_coordinator_faculty,cms.faculty.admin,model_cms_faculty,group_cms_coordinator_id,1,1,1,1
+access_cms_RD_coordinator_project,cms.project.admin,model_cms_project,group_cms_coordinator_id,1,1,1,1
+access_cms_RD_coordinator_group,cms.group.admin,model_cms_group,group_cms_coordinator_id,1,1,1,1
+access_cms_RD_coordinator_department,cms.department.admin,model_cms_department,group_cms_coordinator_id,1,1,1,1
+access_cms_RD_coordinator_projectEvaluation,cms.projectevaluation.admin,model_cms_projectevaluation,group_cms_coordinator_id,1,1,1,1
+access_cms_RD_student,cms.student.admin,model_cms_student,group_cms_student_id,1,0,0,0
+access_cms_RD_student_project,cms.project.admin,model_cms_project,group_cms_student_id,1,1,1,0
+access_cms_RD_student_projectevaluation,cms.projectevaluation.admin,model_cms_projectevaluation,group_cms_student_id,1,0,0,0
+access_cms_RD_faculty,cms.faculty.admin,model_cms_faculty,group_cms_faculty_id,1,0,0,0
+access_cms_RD_faculty_project,cms.project.admin,model_cms_project,group_cms_faculty_id,1,0,0,0
+access_cms_RD_faculty_projectevaluation,cms.projectevaluation.admin,model_cms_projectevaluation,group_cms_faculty_id,1,1,1,1
+access_event_organizer_all,event.organizer.all,model_event_organizer,,1,1,1,0
+access_hr_employee_organizer_all,hr.employee.organizer.all,model_hr_employee_organizer,,1,1,1,0

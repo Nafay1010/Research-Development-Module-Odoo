@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- root menu -->
+    <menuitem id="menu_RD_main" name="Research and Development" sequence="0" action="action_project_main"/>
+
+    <!-- submenu -->
+    <menuitem id="menu_RD_Student" name="Student" parent="menu_RD_main" sequence="1"/>
+    <menuitem id="menu_sub_RD_Student" name="Student" parent="menu_RD_Student" action="action_student_main" sequence="21"/>
+    <menuitem id="menu_sub_RD_Projects" name="Project" parent="menu_RD_Student" action="action_project_main" sequence="24"/>
+    <menuitem id="menu_sub_RD_ProjectsEvaluation_student" name="Projects Evaluation" parent="menu_RD_Student" action="action_projectevaluation_main" sequence="25"/>
+    
+    <!-- submenu -->
+    <menuitem id="menu_RD_Faculty" name="Faculty" parent="menu_RD_main"  sequence="1"/>
+    <menuitem id="menu_sub_RD_Faculty" name="Faculty" parent="menu_RD_Faculty" action="action_faculty_main" sequence="21"/>
+    <menuitem id="menu_sub_RD_Projects_faculty" name="Projects" parent="menu_RD_Faculty" action="action_project_main" sequence="22"/>
+    <menuitem id="menu_sub_RD_ProjectsEvaluation_faculty" name="Projects Evaluation" parent="menu_RD_Faculty" action="action_projectevaluation_main" sequence="22"/>
+
+<!-- submenu -->
+    <menuitem id="menu_RD_Coordinator" name="Coordinator" parent="menu_RD_main"  sequence="1"/>
+    <menuitem id="menu_sub_RD_Student" name="Student" parent="menu_RD_Coordinator" action="action_student_main" sequence="21"/>
+    <menuitem id="menu_sub_RD_Departments" name="Departments" parent="menu_RD_Coordinator" action="action_cms_department" sequence="22"/>
+    <menuitem id="menu_sub_RD_Groups" name="Groups" parent="menu_RD_Coordinator" action="action_cms_group" sequence="23"/>
+    <menuitem id="menu_sub_RD_Faculty" name="Faculty" parent="menu_RD_Coordinator" action="action_faculty_main" sequence="21"/>
+    <menuitem id="menu_sub_RD_Project" name="Projects" parent="menu_RD_Coordinator" action="action_project_main" sequence="21"/>
+    <menuitem id="menu_sub_RD_organizers" name="Organizers (Prototype)" parent="menu_RD_Coordinator" action="action_event_organizer" sequence="21"/>
+	<menuitem id="menu_sub_RD_employee_organizer" name="Employee Organizers (Delegation)" parent="menu_RD_Coordinator" action="action_hr_employee_organizer" sequence="21"/>
+</odoo>
